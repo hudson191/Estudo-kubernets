@@ -53,4 +53,5 @@ Após criado o arquivo yaml  de configuração, podemos criar o cluster utilizad
 `# kind create cluster --config=k8s/kind.yaml`
 
 Caso deseje escolher o nome do cluster podemos utilziar --name 
+
 `# kind create cluster --config=k8s/kind.yaml --name=batata`
