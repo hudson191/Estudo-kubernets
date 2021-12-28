@@ -24,7 +24,7 @@ O nome Kubernetes tem origem no Grego, significando timoneiro ou piloto. K8s é 
 **Cluster**: Conjunto de máquinas (Nodes)<Br/>
 Cada máquina possui uma quantidade de vCPU e Memória
 
-**Pods**: Unidade que contém o container provisionado<Br/>
+**Pods**: Menor objeto do kubernets que contém o container provisionado<Br/>
 
 ## **kubernets local com kind**
 
@@ -50,3 +50,28 @@ Após criado o arquivo yaml  de configuração, podemos criar o cluster utilizad
 
 Caso deseje escolher o nome do cluster podemos utilziar `--name`.<Br/>
 `# kind create cluster --config=k8s/kind.yaml --name=batata`
+
+# Primeiro passos na prática
+
+## Criando aplicação exemplo e imagem
+
+Utilizando nossa aplicação GO que exibe a mensagem "Batatinha Frita" iremos criar um pod, toda a configuração do pod são feitas e arquivos yaml (k8s/pod.yaml) para criar o pode basta executar o comando<br/>
+`# kubectl apply -f k8s/pod.yaml`
+
+### ReplicaSet
+
+Porem caso este pod trave por algum motivo este pode seja removido, nosso pod não volta a executar e isso não é algo que queremos que ocorra em produção, para solucionar este problema vamos criar o objeto ReplicaSet (k8s/replicaset.yaml)<br/>
+`# kubectl apply -f k8s/replicaset.yaml` 
+
+Desta maneira caso algum pod morra o ReplicaSet cria um novo pod automaticamente, mantendo sempre o mínimo de pods configurados no yaml
+
+### Deployment
+
+Ao gerar uma versão mais nova da aplicação o replicaset não atualiza os pods que estão rodando, para isso acrescentamos um novo objeto Deployment ( Deployment > ReplicaSet > Pod), a configuração de ambos é idêntica alterando apenas o kind o de ReplicaSet para Deployment, como podemos ver no arquivo deployment.yaml.<br/>
+`# kubectl apply -f k8s/deployment.yaml`
+
+Caso altere a versão da imagem e aplique as alterações os pods antigos serão removidos e gerado novos pods com as alterações realizadas.
+
+### Rollout e Revisões
+
+Caso a versão mais nova esteja com um bug e seja necessário voltar para versão anterior não precisamos alterar o yaml novamente, podemos fazer um rollout para uma versão anterior, para isso basta rodar o comando `# kubectl rollout history deployment batatinhago`  para listar as revisões e `# kubectl rollout undo deployment batatinhago` para voltar para ultima versão, caso queria voltar para uma revisão especifica basta utilizar `--to-revisio=[NUMERO REVISÃO]`
