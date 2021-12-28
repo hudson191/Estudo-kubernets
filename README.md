@@ -48,10 +48,8 @@ Para criar um cluster basta utilizar o comando abaixo
 
 Podemos notar que utilziamos este processo temos apenas um node, para criar um cluster multi node precisamos criar um arquivo yaml informando os nodes que desejamos, para melhor entendimento recomento a leitura da documentação https://kind.sigs.k8s.io/docs/user/configuration/
 
-Após criado o arquivo yaml  de configuração, podemos criar o cluster utilizado o parametro --config informando o local do arquivo
-
+Após criado o arquivo yaml  de configuração, podemos criar o cluster utilizado o parametro `--config` informando o local do arquivo.
 `# kind create cluster --config=k8s/kind.yaml`
 
-Caso deseje escolher o nome do cluster podemos utilziar --name 
-
+Caso deseje escolher o nome do cluster podemos utilziar `--name`.
 `# kind create cluster --config=k8s/kind.yaml --name=batata`
