@@ -2,7 +2,7 @@
 
 ## O que é?
 
-"Kubernetes é um plataforma de código aberto, portável e extensiva para o gerenciamento de cargas de trabalho e serviços distribuídos em contêineres, que facilita tanto a configuração declarativa quanto a automação. Ele possui um ecossistema grande, e de rápido crescimento"
+"Kubernetes é um plataforma de código aberto, portável e extensiva para o gerenciamento de cargas de trabalho e serviços distribuídos em contêineres, que facilita tanto a configuração declarativa quanto a automação. Ele possui um ecossistema grande, e de rápido crescimento"<Br/>
 Fonte: https://kubernetes.io/pt-br/docs/concepts/overview/what-is-kubernetes/
 
 ## Da onde veio?
@@ -21,17 +21,17 @@ O nome Kubernetes tem origem no Grego, significando timoneiro ou piloto. K8s é 
 -- Kubelet
 -- kubeproxy
 
-**Cluster**: Conjuto de máquinas (Nodes)
+**Cluster**: Conjuto de máquinas (Nodes)<Br/>
 Cada máquina possui uma quantidade de vCPU e Memória
 
-**Pods**: Unidade que contém o container provisionado
+**Pods**: Unidade que contém o container provisionado<Br/>
 O Pode representa os processo rodando no cluster
 
 
 ## **kubernets local com kind**
 
-Kind é uma ferramenta para executar cluster Kubernets local usando nós de coneiner do Docker.
-Projetado principalmente para testar o prório kubernets, mas também pode usado para desenvolvimento local.
+Kind é uma ferramenta para executar cluster Kubernets local usando nós de coneiner do Docker.<Br/>
+Projetado principalmente para testar o prório kubernets, mas também pode usado para desenvolvimento local.<Br/>
 URL: https://kind.sigs.k8s.io/
 
 ### Como instalar
