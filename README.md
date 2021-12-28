@@ -14,12 +14,12 @@ O nome Kubernetes tem origem no Grego, significando timoneiro ou piloto. K8s é 
 - Kubernets é disponibilizado através de um conjunto de APIs que normalmente acessamos usando a CLI: kubectl
 - Tudo é baseado em estado. Você configura o estado de cada objeto
 - Kubernets Master
--- Kube-apiserver
--- Kube-controller-manager
--- Kube-scheduler
+  - Kube-apiserver
+  - Kube-controller-manager
+  - Kube-scheduler
 - Outros Nodes (Não Master)
--- Kubelet
--- kubeproxy
+  - Kubelet
+  - kubeproxy
 
 **Cluster**: Conjunto de máquinas (Nodes)<Br/>
 Cada máquina possui uma quantidade de vCPU e Memória
