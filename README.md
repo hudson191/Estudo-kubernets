@@ -58,20 +58,36 @@ Caso deseje escolher o nome do cluster podemos utilziar `--name`.<Br/>
 Utilizando nossa aplicação GO que exibe a mensagem "Batatinha Frita" iremos criar um pod, toda a configuração do pod são feitas e arquivos yaml (k8s/pod.yaml) para criar o pode basta executar o comando<br/>
 `# kubectl apply -f k8s/pod.yaml`
 
-### ReplicaSet
+## ReplicaSet
 
 Porem caso este pod trave por algum motivo este pode seja removido, nosso pod não volta a executar e isso não é algo que queremos que ocorra em produção, para solucionar este problema vamos criar o objeto ReplicaSet (k8s/replicaset.yaml)<br/>
 `# kubectl apply -f k8s/replicaset.yaml` 
 
 Desta maneira caso algum pod morra o ReplicaSet cria um novo pod automaticamente, mantendo sempre o mínimo de pods configurados no yaml
 
-### Deployment
+## Deployment
 
 Ao gerar uma versão mais nova da aplicação o replicaset não atualiza os pods que estão rodando, para isso acrescentamos um novo objeto Deployment ( Deployment > ReplicaSet > Pod), a configuração de ambos é idêntica alterando apenas o kind o de ReplicaSet para Deployment, como podemos ver no arquivo deployment.yaml.<br/>
 `# kubectl apply -f k8s/deployment.yaml`
 
 Caso altere a versão da imagem e aplique as alterações os pods antigos serão removidos e gerado novos pods com as alterações realizadas.
 
-### Rollout e Revisões
+## Rollout e Revisões
 
 Caso a versão mais nova esteja com um bug e seja necessário voltar para versão anterior não precisamos alterar o yaml novamente, podemos fazer um rollout para uma versão anterior, para isso basta rodar o comando `# kubectl rollout history deployment batatinhago`  para listar as revisões e `# kubectl rollout undo deployment batatinhago` para voltar para ultima versão, caso queria voltar para uma revisão especifica basta utilizar `--to-revisio=[NUMERO REVISÃO]`
+
+# Services
+
+Ter nossas aplicações rodando não significa que a aplicação pode ser acessada, para isso utilizamos Services, ele será responsável de escolher para qual pod a requisição será direcionada.
+
+## ClusterIP
+
+Como em toda configuração o Service também é feito por um arquivo yaml (service-clusterip.yaml), nele informamos qual o app em selector que iremos fazer o balanceamento, para isso utilizamos o nome que colocamos ao configurar o pod em matchLabels, para com isso o Service poder filtrar os containers que ira utilizar para balanceamento.
+
+Podemos utilizar o comando `# kubectl get svc` para listar os serviços, com isso podemos notar que foi atribuído um IP interno do kubernets para o serviço, porem a porta não esta publica, com isso precisamos realizar um port-foward para poder acessar o serviço de fora do container.<br/>
+`# kubectl port-forward svc/batatinhago-service 8000:80`  
+
+## NodePort
+
+O serviço NodePort é um tipo de serviço que permite acessar o kuster de fora do kubernets, lembrando que precisamos atribuir uma porta maior que **30000** e menor que **32767** e que a porta informada é liberada em todos os nodes
+

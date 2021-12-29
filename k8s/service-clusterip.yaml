@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: batatinhago-service
+spec:
+  selector:
+    app: batatinhago
+  type: ClusterIP
+  ports:
+  - name: batatinhago-service
+    port: 80
+    protocol: TCP

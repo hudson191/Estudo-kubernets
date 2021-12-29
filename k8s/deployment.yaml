@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: batatinhago
-        image: "hudsonvonzuben/hello-batatinha-go:latest"
+        image: "hudsonvonzuben/hello-batatinha-go"

@@ -4,10 +4,14 @@ WORKDIR /go/src/app
 
 COPY . .
 
-RUN go build -o server .
+RUN CGO_ENABLED=0 GOOS=linux go build -o server ./...
+
+CMD ["/go/src/app/server"]
 
 FROM scratch
 
-COPY --from=build /go/src/app/server ./
+WORKDIR /var
 
-CMD ["./server"]
+COPY --from=build /go/src/app/server /var
+
+ENTRYPOINT ["/var/server"]
