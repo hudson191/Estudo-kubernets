@@ -91,3 +91,23 @@ Podemos utilizar o comando `# kubectl get svc` para listar os serviços, com iss
 
 O serviço NodePort é um tipo de serviço que permite acessar o kuster de fora do kubernets, lembrando que precisamos atribuir uma porta maior que **30000** e menor que **32767** e que a porta informada é liberada em todos os nodes
 
+## Environment
+
+Para utilizarmos variáveis  de ambientes, podemos colocar as informação **env** dentro do arquivo de deployment (deployment-env.yaml). 
+
+### ConfigMap
+
+Para não utilizar as variáveis  de ambiente em hard code dentro do deployment podemos utilizar o ConfigMap e criar um arquivo com as variáveis  conforme o k8s/configmap-env.yaml, para o deployment ler o config map basta trocar a opção **value** do **env** por **valueFrom** e informar o nome do config map e qual a chave deseja buscar. 
+
+Outra maneira que podemos trabalhar é buscar todos os parâmetros do ConfigMap, para isso basta trocar a opção env por envFrom (k8s/deployment-env-configmap.yaml).
+
+#### Injetando ConfigMap na aplicação
+
+Existe casos em que precisamos criar arquivos para aplicação, como configuração do NGINX, podemos fazer isso criando um volume e montando ele dentro do container, confirme feito no arquivo k8s/deployment-file-configmap.yaml.
+
+Para verificar se o arquivo foi criado, você pode acessar o pod com o seguinte comando:<br/>
+`# kubectl exec -it [NOME_DO_POD] -- bash`
+
+### Sercrets
+
+Secrets é uma forma de trabalhar com os dados "ofuscados", não é algo muito seguro uma vez que as informações são armazenadas em Base64 e facilmente decodificada, para isso criamos um arquivo de configuração k8s/secret.yaml, e configurar dentro do **envFrom** similar ao config map, porem substitui o  **configMapRef** por **secretRef**

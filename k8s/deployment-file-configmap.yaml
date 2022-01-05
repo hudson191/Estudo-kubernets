@@ -17,4 +17,14 @@ spec:
     spec:
       containers:
         - name: batatinhago
-          image: "hudsonvonzuben/hello-batatinha-go"
+          image: "hudsonvonzuben/hello-batatinha-go:env"
+          volumeMounts:
+            - mountPath: "/var/files"
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: configmap-file
+            items:
+            - key: file
+              path: "file.txt"

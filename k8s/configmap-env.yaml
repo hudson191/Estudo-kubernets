@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: batatinha-env
+data:
+  NAME: "Batatatinha"
+  AGE: "15"

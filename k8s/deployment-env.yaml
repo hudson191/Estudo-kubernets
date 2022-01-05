@@ -17,4 +17,9 @@ spec:
     spec:
       containers:
         - name: batatinhago
-          image: "hudsonvonzuben/hello-batatinha-go"
+          image: "hudsonvonzuben/hello-batatinha-go:env"
+          env:
+            - name: NAME
+              value: "batatinha"
+            - name: AGE
+              value: "30"
