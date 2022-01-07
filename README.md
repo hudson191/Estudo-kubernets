@@ -111,3 +111,22 @@ Para verificar se o arquivo foi criado, você pode acessar o pod com o seguinte 
 ### Sercrets
 
 Secrets é uma forma de trabalhar com os dados "ofuscados", não é algo muito seguro uma vez que as informações são armazenadas em Base64 e facilmente decodificada, para isso criamos um arquivo de configuração k8s/secret.yaml, e configurar dentro do **envFrom** similar ao config map, porem substitui o  **configMapRef** por **secretRef**
+
+## HealthCheck
+
+### LivenessProbes
+
+Muitas vezes nossa aplicação para de funcionar, neste caso precisamos ficar verificando se o sistema está funcionando para isso utilizamos o livenessProbe, ele possui 3 tipos HTTP, command, tcp. Configuramos em k8s/deployment-livenessprobe.yaml.
+
+- failureThreshold: Quantidade de falhas para reiniciar o POD
+- successThreshold: Quantidade de teste OK para considerar a aplicação saudavel
+
+https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
+
+### Readiness
+
+Muitas vezes nossa aplicação apresenta algum erro e precisa parar de receber tráfego, para isso configuramos o **readiness** que valida se a aplicacação esta saudável para receber as requisições, diferente do liveness o readiness apenas bloqueia as requisições enquanto o liveness reinicia o pod. A configuração é similar ao **livenessProbes** como podemos ver no arquivo k8s/deployment-readiness.yaml
+
+### StartupProb
+
+Muito similar ao **readiness** porem realiza a verificção somente quando o pod esta subindo e o **readines** e **liviness** roda somente após o startup falar que a aplicação esta pronta.

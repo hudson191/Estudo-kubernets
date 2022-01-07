@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: batatinhago
+  labels:
+    app: batatinhago
+spec:
+  selector:
+    matchLabels:
+      app: batatinhago
+  replicas: 2
+  template:
+    metadata:
+      name: "batatinhago"
+      labels:
+        app: "batatinhago"
+    spec:
+      containers:
+        - name: batatinhago
+          image: "hudsonvonzuben/hello-batatinha-go"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            periodSeconds: 5
+            failureThreshold: 5
+            timeoutSeconds: 1
+            successThreshold: 1
