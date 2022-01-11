@@ -130,3 +130,15 @@ Muitas vezes nossa aplicação apresenta algum erro e precisa parar de receber t
 ### StartupProb
 
 Muito similar ao **readiness** porem realiza a verificção somente quando o pod esta subindo e o **readines** e **liviness** roda somente após o startup falar que a aplicação esta pronta.
+
+## Resources e HPA
+
+O HPA é o objeto real do Kubernetes que verifica rotineiramente os dados de uso de CPU coletados do Metrics Server e escala seu deployment com base nos limites que você definiu.
+
+### Instalando metrics-server
+
+Muitas vezes precisamos aumentar a quantidade de PODs que estão executando em nosso kubernets, para isso precisamos saber quanto cada POD esta consumindo, para isso precisamos instalar o metrics-server. Porem ele exige que a comunicação entre todos os PODS sejam segura com TLS, porem como nosso ambiente esta rodando local apenas para desenvolvimento não temos todas essas configurações, para isso precisamos realizar um bypass nessa configuração.
+
+Para isso devemos editar o arquivo yaml de instalação contido no link (https://github.com/kubernetes-sigs/metrics-server), para isso baixamos o arquivo e adicionamos o argumento `--kubelet-insecure-tls` no **Deployment** conforme feito no arquivo **k8s/metrics-server.yaml**, após a modificação basta aplicar a configuração. Após toda ocnfiguração realizada podemos verificar se tudo esta OK atraves do `# kubectl get apiservice`, e verificar se a opção **metrics** esta como **True**. 
+
+
